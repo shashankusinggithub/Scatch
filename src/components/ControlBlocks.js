@@ -24,7 +24,7 @@ function ControlBlock(props) {
       const index = prv.findIndex(object => {
         return object.key === props.id;
       });
-      // console.log("innerbox, board", index, prv)
+      console.log("innerbox, board", index, prv)
 
       prv[index].array = inner
 
@@ -133,7 +133,7 @@ function ControlBlock(props) {
         <div className='flex flex-row items-center space-x-10'>
         <div className=' text-lg py-2 mr-40'>{props.operation}</div>
 
-        <input onChange={handleChange} defaultValue={5} type="text"  className='text-blue-900  mr-2 p-4 text-lg w-16 h-5  border-rounded rounded-xl'></input></div>
+        <input onChange={handleChange} placeholder="5" type="text"  className='text-blue-900  mr-2 p-4 text-lg w-16 h-5  border-rounded rounded-xl'></input></div>
         
 
         <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} className="mr-0 ml-auto">

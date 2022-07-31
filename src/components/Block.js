@@ -7,12 +7,14 @@ function Block(props) {
         type: `${props.type}`,
         item: {props: props},
         collect: (monitor) =>({
+          
           isDragging: !!monitor.isDragging(),
         })
       }))
     let dragable
     
     if (props.type){
+      // console.log(props)
       dragable = drag }else{
        dragable = {}
       }

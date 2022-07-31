@@ -12,7 +12,8 @@ export default function PreviewArea(props) {
   const [Y, setY] = useState(0)
   const [R, setR] = useState(0)
   const [urlSprite, setUrl] = useState("https://www.seekpng.com/png/full/19-191322_scratch-cat-the-game-pose-as-you-know.png")
-
+  const [waiting, setWaiting] = useState(false)
+  const [forlooprunning, setForlooprunning] = useState(false)
   let flag = false
   let cancel = false
 
@@ -26,7 +27,7 @@ export default function PreviewArea(props) {
     const childPos = document.getElementById('child-id').getBoundingClientRect()
 
 
-
+    
 
     relativePos.top = childPos.top - parentPos.top
     relativePos.right = childPos.right - parentPos.right
@@ -40,29 +41,59 @@ export default function PreviewArea(props) {
 
 
   function handleStartFlag() {
-    if (props.flow[0].onTap === "flag") {
-      cancel = false
-      flag = true
-      forloop()
+     {
+     if (props.flow[0].onTap == "flag")
+     { flag = true
+     console.log(props.flow[0], "best", forlooprunning, waiting)
+      
+      if(!waiting && !forlooprunning){
+        forloop()
+      }}
     }
   }
 
   function handleStartSprite() {
-    if (props.flow[0].onTap === "sprite") {
-      sprite = true
-      forloop()
+     {
+      if (props.flow[0].onTap == "sprite")
+     { sprite = true}
+      if(!waiting && !forlooprunning){
+        forloop()
+      }
+      
     }
   }
-  function handleStop() {
-    console.log("tryed to cancell")
-    flag = false
-    sprite = false
-    cancel = true
+
+
+  let waitForPressResolve;
+
+  function waitForPress() {
+      return new Promise(resolve => waitForPressResolve = resolve);
   }
+  
+  
+  function btnResolver() {
+    if (waitForPressResolve) waitForPressResolve();
+  }
+  
+  async function doIt(name) {
+    setWaiting(true)
+    const btn = document.getElementById(name);
+    btn.addEventListener('click', btnResolver);
+    {
+      console.log(1);
+      await waitForPress();
+    }
+    btn.removeEventListener('click', btnResolver);
+    console.log('Finished');
+  }
+  
+  
+ 
 
 
   let promise = []
   const forloop = async () => {
+    setForlooprunning(true)
 
     try {
       let Xp = X
@@ -70,13 +101,25 @@ export default function PreviewArea(props) {
       let Rp = R
       let temp = { x: Xp, y: Yp, rotate: Rp }
       let temp1
-      console.log("started", flag, sprite)
       for (const item of props.flow) {
-        if (cancel === true) {
-          throw Error("user stoped")
+        console.log("started", flag, sprite, item)
+       
+        if (item.onTap ) {
+          if (item.onTap === "flag" && item !== props.flow[0])
+          
+          { setWaiting(true)
+            await doIt("flag")
+          continue
+        }
+
+          if (item.onTap === "sprite" && item !== props.flow[0])
+          { setWaiting(true)
+            await doIt('child-id')
+          continue}
+          setWaiting(false)
         }
         await new Promise(resolve => setTimeout(resolve), 500)
-        console.log(item)
+        // console.log(item)
         if (flag || sprite) {
           if (item.action) {
             // console.log("started")
@@ -85,14 +128,13 @@ export default function PreviewArea(props) {
             Xp = Xp + item.action.x
             temp = { x: Xp, y: Yp, rotate: Rp }
             // console.log(temp)
-            if (cancel) {
-              throw Error("user stoped")
-            }
+            
             temp1 = await animation.start(temp)
             promise.push(temp1)
             setX(Xp)
             setY(Yp)
             setR(Rp)
+            animation.stop()
           }
           else if (item.array) {
             for (let i = 1; i <= item.repeat; i++) {
@@ -111,13 +153,16 @@ export default function PreviewArea(props) {
             throw Error("user stoped")
           }
         }
-        else {
-          break
-        }
+        // else {
+        //   break 
+        // }
 
       }
       flag = false
       sprite = false
+      setWaiting(false)
+      setForlooprunning(false)
+      console.log("finished for", waiting, forlooprunning)
 
     }
     catch (error) {
@@ -232,6 +277,7 @@ export default function PreviewArea(props) {
       <div className="  items-end float-left flex flex-row space-x-6 absolute right-2">
 
         <img
+        id="flag"
           className="w-16 shadow-lg "
           src="https://w7.pngwing.com/pngs/186/520/png-transparent-computer-icons-flag-icon-design-various-actions-miscellaneous-angle-flag-thumbnail.png"
           onClick={handleStartFlag}
