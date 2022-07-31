@@ -101,7 +101,7 @@ function ControlBlock(props) {
 
   function handleChange(event) {
     const value = Number(event.target.value.replace(/\D/g, ''))
-    console.log(value)
+    // console.log(value)
     
       props.setBoard((prv) => {
         const index = prv.findIndex(object => {
@@ -109,7 +109,7 @@ function ControlBlock(props) {
 
 
           prv[index].repeat = value
-          console.log(prv[index], props.id, index)
+          // console.log(prv[index], props.id, index)
 
           // console.log(prv[index].action)
           return ([...prv])

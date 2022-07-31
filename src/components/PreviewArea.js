@@ -44,7 +44,7 @@ export default function PreviewArea(props) {
      {
      if (props.flow[0].onTap == "flag")
      { flag = true
-     console.log(props.flow[0], "best", forlooprunning, waiting)
+    //  console.log(props.flow[0], "best", forlooprunning, waiting)
       
       if(!waiting && !forlooprunning){
         forloop()
@@ -80,11 +80,11 @@ export default function PreviewArea(props) {
     const btn = document.getElementById(name);
     btn.addEventListener('click', btnResolver);
     {
-      console.log(1);
+      // console.log(1);
       await waitForPress();
     }
     btn.removeEventListener('click', btnResolver);
-    console.log('Finished');
+    // console.log('Finished');
   }
   
   
@@ -102,7 +102,7 @@ export default function PreviewArea(props) {
       let temp = { x: Xp, y: Yp, rotate: Rp }
       let temp1
       for (const item of props.flow) {
-        console.log("started", flag, sprite, item)
+        // console.log("started", flag, sprite, item)
        
         if (item.onTap ) {
           if (item.onTap === "flag" && item !== props.flow[0])
@@ -139,7 +139,7 @@ export default function PreviewArea(props) {
           else if (item.array) {
             for (let i = 1; i <= item.repeat; i++) {
               temp1 = await insideforloop(item.array, Xp, Yp, Rp)
-              console.log(temp1)
+              // console.log(temp1)
 
               Xp = temp1.x
               Yp = temp1.y
@@ -162,7 +162,7 @@ export default function PreviewArea(props) {
       sprite = false
       setWaiting(false)
       setForlooprunning(false)
-      console.log("finished for", waiting, forlooprunning)
+      // console.log("finished for", waiting, forlooprunning)
 
     }
     catch (error) {
@@ -261,8 +261,18 @@ export default function PreviewArea(props) {
 
   function handleChange(event) {
     const value = event.target.value
-    console.log(value)
+    // console.log(value)
     setUrl(value)
+
+  }
+
+  function handleStop(){
+    animation.stop()
+    flag = false
+    sprite = false
+    setWaiting(false)
+    setForlooprunning(false)
+    // console.log("Stoped by user", waiting, forlooprunning)
 
   }
 
@@ -284,7 +294,7 @@ export default function PreviewArea(props) {
         />
 
         <img className="h-16 shadow-lg"
-          onClick={() => animation.stop()}
+          onClick={handleStop}
           src="https://www.clipartmax.com/png/full/218-2181389_stop-it-simple-multicolor-icon-stop-traffic-sign.png" />
         <input onChange={handleChange} type="text" placeholder="Submit your IMG url" className='text-blue-900 border-4 border-indigo-500/100 text-lg space-x-20 w-90 h-10 p-2 rounded-lg'></input>
         </div>
