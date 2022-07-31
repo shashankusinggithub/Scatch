@@ -321,7 +321,7 @@ export default function PreviewArea(props) {
         id='child-id'
         ref={ref}
         // initial={false}
-        className="h-28 m-14 relative shadow-lg "
+        className="w-20 m-14 relative "
         //  onClick={() => setIsActive(!isActive)}
         dragMomentum={false}
         drag

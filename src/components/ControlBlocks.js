@@ -46,7 +46,7 @@ function ControlBlock(props) {
   const addImageToBoard = (ite) => {
     // console.log(ite)
     const temp = {
-      id: ite.id,
+      func: ite.func,
       class: ite.class,
       operation: ite.operation,
       action: ite.item.action,
@@ -120,7 +120,7 @@ function ControlBlock(props) {
     }
 
     return (
-      <div ref={dropE} className={`${props.class}  min-h-20 rounded-lg border-2 shadow-lg fex flex-col`}
+      <div ref={dropE} className={`${props.class}  min-h-20 rounded-lg border-2 shadow-lg flex flex-col`}
         
         onClick={() => {
           {
@@ -130,16 +130,16 @@ function ControlBlock(props) {
         }
         }
       >
-        <div className='flex flex-row items-center space-x-10'>
-        <div className=' text-lg py-2 mr-40'>{props.operation}</div>
+        <div className='flex flex-row items-center '>
+        <div className=' text-lg '>{props.operation}</div>
 
-        <input onChange={handleChange} placeholder="5" type="text"  className='text-blue-900  mr-2 p-4 text-lg w-16 h-5  border-rounded rounded-xl'></input></div>
+        <input onChange={handleChange} placeholder="5" type="text"  className='text-blue-900   ml-20  w-12 h-5  border-rounded rounded-xl'></input></div>
         
 
-        <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} className="mr-0 ml-auto">
+        <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} > 
           {innerBlock.map((item) => (
             <Reorder.Item key={item.key} value={item} drag className=" flex-row  content-center">
-              <Blockcopy id={item.key} class={` items-center mr-3 ml-auto ${item.class}`} operation={item.operation} setFlow={props.setFlow}
+              <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow}
                 type={"replaceinto"} action={item.action}  setInnerBlock={setInnerBlock} />
             </Reorder.Item>
           ))}
