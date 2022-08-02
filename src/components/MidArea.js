@@ -1,37 +1,32 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDrop } from "react-dnd";
 import Blockcopy from "./Blockcopy";
-import { Reorder, useDragControls, useForceUpdate, useVelocity } from "framer-motion"
+import { Reorder} from "framer-motion"
 import ControlBlocks from "./ControlBlocks"
 import Context from "./Context";
 
-
 export default function MidArea(props) {
   
-  const [keyVal, setKeyVal] = useContext(Context)
-  
+  const [keyVal, setKeyVal] = useContext(Context)  
   const [board, setBoard] = useState([])
   const [count, setCount] = useState({count:1})
   
-
+// deleting elements in midArea when ever the element is clicked and delete button is pressed
   useEffect(() => {
     const listener = event => {
-      if (event.code === "Delete") {
-        
+      if (event.code === "Delete") {        
         setBoard((prv) => {
           let newArr
           if (keyVal < 1000)
           {prv = prv.filter(object => {
             return object.key !== keyVal;
           });}
-
           else{
             let prekey = Math.round(keyVal/1000)
             newArr = prv
             const ind = prv.findIndex(object => {
               return object.key === prekey;
             });
-
             // console.log("Enter key was pressed. Run your function.", keyVal, prekey, ind);
             newArr = prv[ind].array.filter(object => {
               return object.key !== keyVal})  
@@ -50,7 +45,7 @@ export default function MidArea(props) {
   }, [keyVal]);
 
 
-
+// updating the flow when ever board is updated
   useEffect(() => {
     let flowAdding = []
     // console.table(board, "flow")
@@ -61,34 +56,24 @@ export default function MidArea(props) {
     }
     props.setFlow(flowAdding)
     // console.log(flowAdding, props.flow)
-
-
-
   }, [board])
 
 
-  const [{ isOver, isOverCurrent }, drop, ] = useDrop(() => ({
-    
-    accept: ["insert", "replace", "insertinto", "replaceinto"],
+  const [{ isOver, isOverCurrent }, drop, ] = useDrop(() => ({    
+    accept: ["insert", "insertinto"],
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop()
       if (didDrop) {
         return
-      }
-      
-      
-      addImageToBoard(item.props,)
-
-
+      }          
+      addImageToBoard(item.props)
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       isOverCurrent: monitor.isOver({ shallow: true })
     })
-  }))
-
-  
-
+  })) 
+  // temp is created with all the properties
   const addImageToBoard = (ite) => {
     // console.log(ite)
     const temp = {
@@ -103,14 +88,11 @@ export default function MidArea(props) {
     }
     let Counttemp 
     setCount((prv)=> {
-      Counttemp = prv.count+1
-      
-      return ({...prv, count: prv.count +1})})
-    
-    console.log("temp",temp.action, ite, Counttemp)
+      Counttemp = prv.count+1      
+      return ({count: prv.count +1})})    
+    // console.log("temp",temp.action, ite, Counttemp)  
     setBoard((prv) => {
       console.log(count, "count board", prv)
-
       return ([...prv, { ...temp, key: Counttemp}])
     })
   }
@@ -122,10 +104,10 @@ export default function MidArea(props) {
     <Reorder.Group axis={"y" || "x"} values={board} id="midarea" className=" flex-row  py-4 -space-y-2" onReorder={setBoard}>
       {board.map((item) => (
         <Reorder.Item drag key={item.key} value={item}  >
-          {item.type === "insertinto" &&  <ControlBlocks id={item.key} draggable={true} class={` items-start py-5 ${item.class}`} operation={item.operation} setFlow={props.setFlow}
-            type={"replace"} flow={props.flow} board={board} setBoard={setBoard} />}
-          {item.type === "insert" && <Blockcopy id={item.key} draggable={true} class={` items-center  ${item.class}`} operation={item.operation} setFlow={props.setFlow} action={item.action}
-            type={"replace"} setBoard={setBoard}>{item.type}</Blockcopy>}
+          {item.type === "insertinto" &&  <ControlBlocks id={item.key} draggable={true} class={` items-start py-5 ${item.class}`} operation={item.operation} 
+              setInlist={setBoard} />}
+          {item.type === "insert" && <Blockcopy id={item.key} draggable={true} class={` items-center  ${item.class}`} operation={item.operation} action={item.action} // action is added just to avoid input div for event blocks
+            setInlist={setBoard}/>}
         </Reorder.Item>
       ))}
     </Reorder.Group>

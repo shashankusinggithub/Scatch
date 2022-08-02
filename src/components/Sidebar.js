@@ -1,12 +1,7 @@
 import React from "react";
-
-import { motion } from "framer-motion"
-
 import Block from "./Block";
 
-
 export default function Sidebar() {
-
 
   const eventsList = [
     {
@@ -76,12 +71,11 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="w-50 flex-none h-full  items-start overflow-y-auto flex flex-col  p-2 border-r border-gray-200 text-600 text-2xl font-bold ">
+    <div className="w-50 flex-none h-full  items-start overflow-y-auto flex flex-col  p-2 border-r border-gray-200 text-600 text-2xl font-bold " draggable={false}>
       <div className="font-bold"> {"Events"} </div>
       {eventsList.map((item)=> {
         return <Block func={item.func} item={item} class={item.class} operation={item.operation} type={"insert"}/>
       })}
-
 
       <div className="font-bold"> {"Motion"} </div>
       {motionList.map((item)=> {

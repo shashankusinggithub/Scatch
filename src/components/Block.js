@@ -11,6 +11,7 @@ function Block(props) {
           isDragging: !!monitor.isDragging(),
         })
       }))
+
     let dragable
     
     if (props.type){
@@ -22,7 +23,5 @@ function Block(props) {
     <div ref={dragable} className={`${props.class} h-11 shadow-lg rounded-lg border-2 -space-y-2 items-center `}>{props.operation}</div>
   )
 }
-
-
 
 export default Block
