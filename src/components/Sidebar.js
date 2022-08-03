@@ -2,7 +2,6 @@ import React from "react";
 import Block from "./Block";
 
 export default function Sidebar() {
-
   const eventsList = [
     {
       func: "clickFlag",
@@ -24,25 +23,25 @@ export default function Sidebar() {
     func: "move fw",
     class: "flex flex-row flex-wrap bg-blue-800 text-white px-2 py-1 my-2 text-sm cursor-pointer",
     operation: "Move Forward Steps  👉  ",
-    action: {x: 400, y:0, rotate:0}
+    action: {x: 200, y:0, rotate:0}
   },
   {
     func: "move bw",
     class: "flex flex-row flex-wrap bg-blue-800 text-white px-2 py-1 my-2 text-sm cursor-pointer",
     operation: "Move Backward Steps   👈 ",
-    action: {x: -400, y:0, rotate:0}
+    action: {x: -200, y:0, rotate:0}
   },
   {
     func: "move up",
     class: "flex flex-row flex-wrap bg-blue-800 text-white px-2 py-1 my-2 text-sm cursor-pointer",
     operation: "Move Upside Steps  👆",
-    action: {x:0, y:-400, rotate:0}
+    action: {x:0, y:-200, rotate:0}
   },
   {
     func: "move dwn",
     class: "flex flex-row flex-wrap bg-blue-800 text-white px-2 py-1 my-2 text-sm cursor-pointer",
     operation: "Move Downside Steps  👇︎  ",
-    action: {x: 0, y:400, rotate:0}
+    action: {x: 0, y:200, rotate:0}
   },
   {
     func: "rotateAntiClock",

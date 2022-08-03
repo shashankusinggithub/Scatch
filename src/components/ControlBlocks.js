@@ -6,7 +6,6 @@ import { Reorder} from "framer-motion"
 import Context from "./Context";
 
 
-
 function ControlBlock(props) {
   const [keyVal, setKeyVal] = useContext(Context);
   const [innerBlock, setInnerBlock] = useState([])
@@ -23,7 +22,7 @@ function ControlBlock(props) {
       const index = prv.findIndex(object => {
         return object.key === props.id;
       });
-      // console.log("innerbox, board", index, prv)
+      console.log("innerbox, board", index, prv)
       prv[index].array = inner
       return ([...prv])
     })
@@ -63,10 +62,11 @@ function ControlBlock(props) {
   useEffect(() => {
     const listener = event => {
       if (event.code === "Delete") {
-        if (keyVal > 1000) {
+        if (keyVal.block > 999 && props.spriteIndex === keyVal.index) {
+
           setInnerBlock((prv) => {
             let newArr = prv.filter(object => {
-              return object.key !== keyVal
+              return object.key !== keyVal.block
             })
             return ([...newArr])
           })
@@ -83,41 +83,40 @@ function ControlBlock(props) {
   function handleChange(event) {
     const value = Number(event.target.value.replace(/\D/g, ''))
     // console.log(value)
-    
-      props.setBoard((prv) => {
-        const index = prv.findIndex(object => {
-          return object.key === props.id;})
-          prv[index].repeat = value
-          // console.log(prv[index], props.id, index)
-          // console.log(prv[index].action)
-          return ([...prv])
-        });      
-    }
 
-    return (
-      <div ref={dropE} className={`${props.class}  min-h-20 rounded-lg border-2 shadow-lg flex flex-col`}        
-        onClick={() => {
-          {
-            setKeyVal(props.id)
-          }
-          // console.log(keyVal)
-        }
-        }
-      >
-        <div className='flex flex-row items-center '>
-        <div className=' text-lg '>{props.operation}</div>
-        <input onChange={handleChange} placeholder="5" type="text"  className='text-blue-900   ml-20  w-12 h-5  border-rounded rounded-xl'></input></div>
-        
-        <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} > 
-          {innerBlock.map((item) => (
-            <Reorder.Item key={item.key} value={item} drag className=" flex-row  content-center">
-              <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow}
-                type={"replaceinto"} action={item.action}  setInlist={setInnerBlock} />
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
-      </div>
-    )
+    props.setBoard((prv) => {
+      const index = prv.findIndex(object => {
+        return object.key === props.id;
+      })
+
+      prv[index].repeat = value
+      return ([...prv])
+    });
   }
 
-  export default ControlBlock
+  return (
+    <div ref={dropE} className={`${props.class}  min-h-20 rounded-lg border-2 shadow-lg flex flex-col`}
+
+      onClick={() => {
+        {
+          setKeyVal(props.id)
+        }
+        // console.log(keyVal)
+      } }  >
+      <div className='flex flex-row items-center '>
+        <div className=' text-lg '>{props.operation}</div>
+        <input onChange={handleChange} placeholder="5" type="text" className='text-blue-900   ml-20  w-12 h-5  border-rounded rounded-xl'></input></div>
+
+      <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
+        {innerBlock.map((item) => (
+          <Reorder.Item key={item.key} value={item} drag className=" flex-row  content-center">
+            <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow} spriteIndex={props.spriteIndex}
+              type={"replaceinto"} action={item.action} setInnerBlock={setInnerBlock} />
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
+    </div>
+  )
+}
+
+export default ControlBlock
