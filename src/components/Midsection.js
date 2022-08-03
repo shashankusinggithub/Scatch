@@ -49,22 +49,28 @@ export const Midsection = (props) => {
             </div>
             
 
-            <div className='w-2/5'>
+            <div className='w-2/5 space-y-2 p-4 ' >
 
-                <input type="text" name="url" placeholder='enter img url' onChange={HandleChange}/>
-                <input type="text" name="name" placeholder='enter Name'/>
-                <h1 onClick={()=>HandleSubmit()}>
+                <img className="rounded-sm" src={showurl}/>
+                <input className='rounded-md w-full h-10 border-2 border-black' type="text" name="url" placeholder='Enter img url' onChange={HandleChange}/>
+                <input className='rounded-md w-full h-10 p-2 border-2 border-black' name="name" placeholder='Enter Name'/>
+                <button className="bg-slate-300 rounded-sm border-2 border-black" onClick={()=>HandleSubmit()}>
                     Submit
-                </h1>
-                <img src={showurl}/>
-                <h1>hi</h1>
+                </button>
+                <h1 className='text-600 text-2xl font-bold '>SPRITES</h1>
+                <div className="grid grid-cols-2 justify-center ">
+
                 {
                     props.flow.map((item, index)=>{
                         return ( 
-                            <img src={item.url} onClick={()=> {setactiveSprite(index); console.log(index)}} key={index}/>
+                            <div className='space-y-2 p-4'>
+                            <img className={`w-20 ${activeSprite === index && 'border-4 border-black' } `} src={item.url} onClick={()=> {setactiveSprite(index); console.log(index)}} key={index}/>
+                            <h2 className=''>{item.name}</h2>
+                            </div>
                         )
                     })
                 }
+                </div>
 
                 
             </div>

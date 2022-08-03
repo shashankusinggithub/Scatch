@@ -226,7 +226,7 @@ export default function PreviewArea(props) {
         <img className="h-16 shadow-lg"
           onClick={handleStop}
           src="https://www.clipartmax.com/png/full/218-2181389_stop-it-simple-multicolor-icon-stop-traffic-sign.png" />
-        <input onChange={handleChange} type="text" placeholder="Submit your IMG url" className='text-blue-900 border-4 border-indigo-500/100 text-lg space-x-20 w-90 h-10 p-2 rounded-lg'></input>
+        
         </div>
 
         <div className="flex-row flex absolute opacity-50 ">
