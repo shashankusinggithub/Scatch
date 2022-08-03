@@ -57,9 +57,9 @@ export default function PreviewArea(props) {
             src="https://seeklogo.com/images/L/linkedin-black-icon-logo-ECC426C572-seeklogo.com.png" />
 
         </a>
-        <a href="https://github.com/shashankusinggithub">
+        <a href="https://portfolioshashank.netlify.app/">
           <img className="h-10 mr-2"
-            src="https://pngimg.com/uploads/github/github_PNG83.png"
+            src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png"
           />
         </a>
 
