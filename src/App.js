@@ -7,6 +7,7 @@ import { DndProvider } from "react-dnd"
 import { useState, createContext } from "react";
 import  Context  from "./components/Context";
 import Description from "./components/Description";
+import { Midsection } from "./components/Midsection";
 
 
 
@@ -24,10 +25,10 @@ export default function App() {
             <div className="flex h-screen w-3/5 overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
               <Sidebar />
 
-              <MidArea flow={flow} setFlow={setFlow} />
-              <Description/>
+              <Midsection flow={flow} setFlow={setFlow} />
+              {/* <Description/> */}
             </div>
-            <div className="w-2/5 overflow-x-auto flex flex-row bg-white border-t border-l border-gray-200 rounded-tl-xl ml-2">
+            <div className="w-2/5 overflow-x-auto overflow-y-hidden flex flex-row bg-white border-t border-l border-gray-200 rounded-tl-xl ml-2">
               <PreviewArea flow={flow} />
             </div>
           </div>

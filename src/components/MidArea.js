@@ -59,8 +59,13 @@ export default function MidArea(props) {
       // console.log(board[i].action)
       flowAdding.push({ onTap: board[i].onTap, action: board[i].action, array: board[i].array , repeat: board[i].repeat })
     }
-    props.setFlow(flowAdding)
-    // console.log(flowAdding, props.flow)
+
+    props.setFlow((prv)=>{
+      let temp = [...prv]
+      temp[props.index].sequence =flowAdding
+      return (temp)
+    })
+    console.log(flowAdding, props.flow)
 
 
 
@@ -116,9 +121,9 @@ export default function MidArea(props) {
   }
 
   return <div
-    ref={drop} draggable={false} className="w-3/6 flex-none h-full  overflow-y-auto flex flex-col items-start  border-r border-gray-200 text-600 text-2xl font-bold p-5">
+    ref={drop} draggable={false} className={`${props.activeSprite !== props.index && 'hidden'} flex-none h-screen  overflow-y-auto flex flex-col items-start  border-r border-gray-200 text-600 text-2xl font-bold p-5`}>
     {"Drop Blocks to Animate"}
-
+    <h1>{props.index}</h1>
     <Reorder.Group axis={"y" || "x"} values={board} id="midarea" className=" flex-row  py-4 -space-y-2" onReorder={setBoard}>
       {board.map((item) => (
         <Reorder.Item drag key={item.key} value={item}  >
