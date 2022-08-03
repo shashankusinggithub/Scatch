@@ -43,10 +43,10 @@ export const Midsection = (props) => {
 
             <div className='w-2/5 space-y-2 p-4 ' >
                 <img className="rounded-sm" src={showurl} />
-                <input className='rounded-md w-full h-10 border-2 border-black' type="text" name="url" placeholder='Enter img url' onChange={HandleChange} />
-                <input className='rounded-md w-full h-10 p-2 border-2 border-black' name="name" placeholder='Enter Name' />
+                <input className='rounded-md w-full h-10 border-2 border-black' type="text" name="url" placeholder='Enter Sprite/Img URL' onChange={HandleChange} />
+                <input className='rounded-md w-full h-10 p-2 border-2 border-black' name="name" placeholder='Enter Sprite Name' />
                 <button className="bg-slate-300 rounded-sm border-2 border-black" onClick={() => HandleSubmit()}>
-                    Submit
+                    Submit To Add
                 </button>
                 <h1 className='text-600 text-2xl font-bold '>SPRITES</h1>
                 <div className="grid grid-cols-2 justify-center ">
