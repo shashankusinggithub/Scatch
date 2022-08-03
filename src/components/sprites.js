@@ -3,33 +3,28 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 
 const Sprite = forwardRef((props, ref) => {
-  // const [location, setLocation] = useState({})
+
+  const animation = useAnimation();
   const [X, setX] = useState(0)
   const [Y, setY] = useState(0)
   const [R, setR] = useState(0)
-  // const [urlSprite, setUrl] = useState("https://www.seekpng.com/png/full/19-191322_scratch-cat-the-game-pose-as-you-know.png")
+
   const [waiting, setWaiting] = useState(false)
   const [forlooprunning, setForlooprunning] = useState(false)
-  let flag = true
-  let cancel = false
-
+  const refnope = useRef()
+  
+  let flag = false
   let sprite = false
 
-  const refnope = useRef()
-  const isInView = useInView({ root: props.container })
-
   useImperativeHandle(ref, () => ({
-    handleStartFlag
+    handleStartFlag,handleStop
   }))
-
-
+ 
 
   function updatePosition() {
     let relativePos = { top: 0, bottom: 0, left: 0, right: 0 }
     const parentPos = document.getElementById('parent-id').getBoundingClientRect()
     const childPos = refnope.current.getBoundingClientRect()
-
-
     relativePos.top = childPos.top - parentPos.top
     relativePos.right = childPos.right - parentPos.right
     relativePos.bottom = childPos.bottom - parentPos.bottom
@@ -44,8 +39,8 @@ const Sprite = forwardRef((props, ref) => {
 
   function handleStartFlag() {
     {
-      console.log(props.flow[0], "best", forlooprunning, waiting)
-      if (props.flow[0].onTap == "flag") {
+      console.log(props.flow, "best", forlooprunning, waiting)
+      if (props.flow[0] && props.flow[0].onTap == "flag") {
         flag = true
 
         if (!waiting && !forlooprunning) {
@@ -55,23 +50,21 @@ const Sprite = forwardRef((props, ref) => {
     }
   }
 
+
   function handleStartSprite() {
     {
       if (props.flow[0].onTap == "sprite") { sprite = true }
       if (!waiting && !forlooprunning) {
         forloop()
       }
-
     }
   }
 
-
+// used to hold the sequence untill sprite is clicked of flag is clicked
   let waitForPressResolve;
-
   function waitForPress() {
     return new Promise(resolve => waitForPressResolve = resolve);
   }
-
 
   function btnResolver() {
     if (waitForPressResolve) waitForPressResolve();
@@ -85,12 +78,8 @@ const Sprite = forwardRef((props, ref) => {
       // console.log(1);
       await waitForPress();
     }
-    btn.removeEventListener('click', btnResolver);
-    // console.log('Finished');
+    btn.removeEventListener('click', btnResolver);   
   }
-
-
-
 
 
   let promise = []
@@ -120,7 +109,7 @@ const Sprite = forwardRef((props, ref) => {
           }
           setWaiting(false)
         }
-        await new Promise(resolve => setTimeout(resolve), 500)
+        // await new Promise(resolve => setTimeout(resolve), 500)
         // console.log(item)
         if (flag || sprite) {
           if (item.action) {
@@ -142,7 +131,6 @@ const Sprite = forwardRef((props, ref) => {
             for (let i = 1; i <= item.repeat; i++) {
               temp1 = await insideforloop(item.array, Xp, Yp, Rp)
               // console.log(temp1)
-
               Xp = temp1.x
               Yp = temp1.y
               Rp = temp1.rotate
@@ -150,15 +138,8 @@ const Sprite = forwardRef((props, ref) => {
               setY(Yp)
               setR(Rp)
             }
-          }
-          if (cancel) {
-            throw Error("user stoped")
-          }
-        }
-        // else {
-        //   break 
-        // }
-
+          }          
+        }        
       }
       flag = false
       sprite = false
@@ -186,30 +167,21 @@ const Sprite = forwardRef((props, ref) => {
         await animation.start(temp)
       }
     }
-    setX(Xp)
-    setY(Yp)
-    setR(Rp)
-
+    // setX(Xp)
+    // setY(Yp)
+    // setR(Rp)
     return (temp)
   }
 
-
-
-  const animation = useAnimation();
-
-
-
-
-
-  function handleStop() {
+  function handleStop(){
     animation.stop()
     flag = false
     sprite = false
     setWaiting(false)
     setForlooprunning(false)
     // console.log("Stoped by user", waiting, forlooprunning)
-
   }
+
 
   return (
 
@@ -217,17 +189,16 @@ const Sprite = forwardRef((props, ref) => {
 
     <motion.img
       // layout
-      initial={{x:0, y:0}}
+      initial={{ x: 0, y: 0 }}
       ref={refnope}
       id={props.myname}
       className={`w-20 m-14  absolute`}
       dragMomentum={false}
-      
-      
+
+
       drag
       onDragEnd={updatePosition}
       animate={animation}
-      
 
       // transition={{ type: 'spring', stiffness:0}}
       transition={{
@@ -235,7 +206,7 @@ const Sprite = forwardRef((props, ref) => {
 
       }}
       onChangeCapture={updatePosition}
-      // onTap={handleStartSprite}
+      onClickCapture={handleStartSprite}
       src={props.url}>
     </motion.img>
 

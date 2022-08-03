@@ -5,15 +5,16 @@ import { HTML5Backend } from "react-dnd-html5-backend"
 import { DndProvider } from "react-dnd"
 import { useState, createContext } from "react";
 import  Context  from "./components/Context";
-import Description from "./components/Description";
+
 import { Midsection } from "./components/Midsection";
 
 
 
 
 export default function App() {
+  const sprite = {name: "cat", sequence:[],url: "https://www.seekpng.com/png/full/19-191322_scratch-cat-the-game-pose-as-you-know.png"}
   const [keyVal, setKeyVal] = useState({index:-1, block:-1})
-  const [flow, setFlow] = useState([])
+  const [flow, setFlow] = useState([sprite])
   //store
 
   return (

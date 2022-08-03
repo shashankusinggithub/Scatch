@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDrop } from "react-dnd";
 import Blockcopy from "./Blockcopy";
-import { Reorder, useDragControls, useForceUpdate, useVelocity } from "framer-motion"
+import { Reorder } from "framer-motion"
 import ControlBlocks from "./ControlBlocks"
 import Context from "./Context";
 
