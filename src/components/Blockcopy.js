@@ -111,13 +111,12 @@ function Blockcopy(props) {
     <motion.div id="block"
 
       //  onFocus={()=> console.log("captured", props.id)}
-      className={`${props.class} h-11 items-center rounded-lg border-2`}
+      className={`  ${props.class} h-11 items-center rounded-lg border-2 `}
       onClick={(event) => {
         setKeyVal({index: props.spriteIndex ,block:props.id})
         // console.log(keyVal)
         event.stopPropagation()
       }}
-
 
       type={"replace"}>
       <div className='mr-4 items-center'>{props.operation}</div>

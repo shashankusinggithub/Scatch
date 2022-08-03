@@ -1,16 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import CatSprite from "./CatSprite";
-import { motion, useAnimation, } from "framer-motion";
+import React, { useRef, u} from "react";
+import {  useAnimation, } from "framer-motion";
 import Sprite from "./sprites";
 
 
-
 export default function PreviewArea(props) {
-
   const animation = useAnimation();
   const refs = useRef([])
-
-
+  
   async function handleStop() {
     animation.stop()
     const promises = []
@@ -22,8 +18,6 @@ export default function PreviewArea(props) {
     await Promise.all(promises)
     // console.log("Stoped by user", waiting, forlooprunning)
   }
-
-
 
   async function handleStartFlag() {
     const promises = []
@@ -73,7 +67,6 @@ export default function PreviewArea(props) {
 
       </div>
       <br></br>
-
 
       {
         props.flow.map((item, index) => {

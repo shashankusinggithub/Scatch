@@ -6,7 +6,6 @@ import { Reorder, useDragControls } from "framer-motion"
 import Context from "./Context";
 
 
-
 function ControlBlock(props) {
   const [keyVal, setKeyVal] = useContext(Context);
 
@@ -15,7 +14,6 @@ function ControlBlock(props) {
 
   useEffect(() => {
     let inner = []
-
     for (let i = 0; i < innerBlock.length; i++) {
       inner.push({ onTap: innerBlock[i].onTap, action: innerBlock[i].action, key: innerBlock[i].key })
     }
@@ -25,9 +23,7 @@ function ControlBlock(props) {
         return object.key === props.id;
       });
       console.log("innerbox, board", index, prv)
-
       prv[index].array = inner
-
       return ([...prv])
     })
     // setInnerBlock(inner)
@@ -57,23 +53,10 @@ function ControlBlock(props) {
     }
     count += 1
 
-
     setInnerBlock((prv) => {
       // console.log(temp)
       return ([...prv, { ...temp, key: (props.id) * 1000 + count }])
     })
-
-
-    // const index = props.flow.findIndex(object => {
-    //   return object.id === props.id;
-    // });
-
-    // props.setFlow((prv) => {
-    //   // console,log(prv)
-    //   // console.log(props.id, "propsid", props.flow)
-    //   // prv[index].array  =  innerBlock
-    //   return (prv)
-    // })
 
 
   }
@@ -102,52 +85,40 @@ function ControlBlock(props) {
   function handleChange(event) {
     const value = Number(event.target.value.replace(/\D/g, ''))
     // console.log(value)
-    
-      props.setBoard((prv) => {
-        const index = prv.findIndex(object => {
-          return object.key === props.id;})
 
+    props.setBoard((prv) => {
+      const index = prv.findIndex(object => {
+        return object.key === props.id;
+      })
 
-          prv[index].repeat = value
-          // console.log(prv[index], props.id, index)
-
-          // console.log(prv[index].action)
-          return ([...prv])
-
-
-        });
-      
-    }
-
-    return (
-      <div ref={dropE} className={`${props.class}  min-h-20 rounded-lg border-2 shadow-lg flex flex-col`}
-        
-        onClick={() => {
-          {
-            setKeyVal(props.id)
-          }
-          // console.log(keyVal)
-        }
-        }
-      >
-        <div className='flex flex-row items-center '>
-        <div className=' text-lg '>{props.operation}</div>
-
-        <input onChange={handleChange} placeholder="5" type="text"  className='text-blue-900   ml-20  w-12 h-5  border-rounded rounded-xl'></input></div>
-        
-
-        <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} > 
-          {innerBlock.map((item) => (
-            <Reorder.Item key={item.key} value={item} drag className=" flex-row  content-center">
-              <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow} spriteIndex={props.spriteIndex}
-                type={"replaceinto"} action={item.action}  setInnerBlock={setInnerBlock} />
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
-      </div>
-    )
+      prv[index].repeat = value
+      return ([...prv])
+    });
   }
 
+  return (
+    <div ref={dropE} className={`${props.class}  min-h-20 rounded-lg border-2 shadow-lg flex flex-col`}
 
+      onClick={() => {
+        {
+          setKeyVal(props.id)
+        }
+        // console.log(keyVal)
+      } }  >
+      <div className='flex flex-row items-center '>
+        <div className=' text-lg '>{props.operation}</div>
+        <input onChange={handleChange} placeholder="5" type="text" className='text-blue-900   ml-20  w-12 h-5  border-rounded rounded-xl'></input></div>
 
-  export default ControlBlock
+      <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} >
+        {innerBlock.map((item) => (
+          <Reorder.Item key={item.key} value={item} drag className=" flex-row  content-center">
+            <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow} spriteIndex={props.spriteIndex}
+              type={"replaceinto"} action={item.action} setInnerBlock={setInnerBlock} />
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
+    </div>
+  )
+}
+
+export default ControlBlock

@@ -30,7 +30,7 @@ export const Midsection = (props) => {
 
     return (
         <div className='flex flex-row '>
-            <div className='w-3/5'>
+            <div className='w-4/5'>
                 {
                     props.flow.map((item, index) => {
 
