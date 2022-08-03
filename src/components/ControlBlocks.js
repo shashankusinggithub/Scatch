@@ -81,11 +81,11 @@ function ControlBlock(props) {
   useEffect(() => {
     const listener = event => {
       if (event.code === "Delete") {
-        if (keyVal > 1000) {
+        if (keyVal.block > 999 && props.spriteIndex === keyVal.index) {
 
           setInnerBlock((prv) => {
             let newArr = prv.filter(object => {
-              return object.key !== keyVal
+              return object.key !== keyVal.block
             })
             return ([...newArr])
           })
@@ -139,7 +139,7 @@ function ControlBlock(props) {
         <Reorder.Group axis="y" values={innerBlock} onReorder={setInnerBlock} > 
           {innerBlock.map((item) => (
             <Reorder.Item key={item.key} value={item} drag className=" flex-row  content-center">
-              <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow}
+              <Blockcopy id={item.key} class={` items-end ml-10 ${item.class}`} operation={item.operation} setFlow={props.setFlow} spriteIndex={props.spriteIndex}
                 type={"replaceinto"} action={item.action}  setInnerBlock={setInnerBlock} />
             </Reorder.Item>
           ))}

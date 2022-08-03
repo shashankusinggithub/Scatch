@@ -20,25 +20,26 @@ export default function MidArea(props) {
         
         setBoard((prv) => {
           let newArr
-          if (keyVal < 1000)
+          console.log(prv, "delet try")
+          if (keyVal.block < 1000 && props.spriteIndex === keyVal.index)
           {prv = prv.filter(object => {
-            return object.key !== keyVal;
+            return object.key !== keyVal.block;
           });}
+          // else if (keyVal.block > 999 && props.spriteIndex === keyVal.index){
+          //   let prekey = Math.round(keyVal.block/1000)
+          //   newArr = prv
 
-          else{
-            let prekey = Math.round(keyVal/1000)
-            newArr = prv
-            const ind = prv.findIndex(object => {
-              return object.key === prekey;
-            });
+          //   const ind = prv.findIndex(object => {
+          //     return object.key === prekey;
+          //   });
 
-            // console.log("Enter key was pressed. Run your function.", keyVal, prekey, ind);
-            newArr = prv[ind].array.filter(object => {
-              return object.key !== keyVal})  
-            prv[ind].array = newArr          
-            return ([...prv])
+          //   newArr = prv[ind].array.filter(object => {
+          //     return object.key !== keyVal.block})  
+          //     prv[ind].array = newArr          
+          //     console.log("Enter key was ", keyVal, prekey, ind, prv, newArr);
+            
 
-          }
+          // }
           return ([...prv])
         })
       }
@@ -62,7 +63,7 @@ export default function MidArea(props) {
 
     props.setFlow((prv)=>{
       let temp = [...prv]
-      temp[props.index].sequence =flowAdding
+      temp[props.spriteIndex].sequence = flowAdding
       return (temp)
     })
     console.log(flowAdding, props.flow)
@@ -121,15 +122,15 @@ export default function MidArea(props) {
   }
 
   return <div
-    ref={drop} draggable={false} className={`${props.activeSprite !== props.index && 'hidden'} flex-none h-screen  overflow-y-auto flex flex-col items-start  border-r border-gray-200 text-600 text-2xl font-bold p-5`}>
+    ref={drop} draggable={false} className={`${props.activeSprite !== props.spriteIndex && 'hidden'} flex-none h-screen  overflow-y-auto flex flex-col items-start  border-r border-gray-200 text-600 text-2xl font-bold p-5`}>
     {"Drop Blocks to Animate"}
-    <h1>{props.index}</h1>
+    <h1>{props.spriteIndex}</h1>
     <Reorder.Group axis={"y" || "x"} values={board} id="midarea" className=" flex-row  py-4 -space-y-2" onReorder={setBoard}>
       {board.map((item) => (
         <Reorder.Item drag key={item.key} value={item}  >
-          {item.type === "insertinto" &&  <ControlBlocks id={item.key} draggable={true} class={` items-start py-5 ${item.class}`} operation={item.operation} setFlow={props.setFlow}
+          {item.type === "insertinto" &&  <ControlBlocks id={item.key} draggable={true} class={` items-start py-5 ${item.class}`} operation={item.operation} setFlow={props.setFlow} spriteIndex={props.spriteIndex}
             type={"replace"} flow={props.flow} board={board} setBoard={setBoard} />}
-          {item.type === "insert" && <Blockcopy id={item.key} draggable={true} class={` items-center  ${item.class}`} operation={item.operation} setFlow={props.setFlow} action={item.action}
+          {item.type === "insert" && <Blockcopy id={item.key} draggable={true} class={` items-center  ${item.class}`} operation={item.operation} setFlow={props.setFlow} action={item.action} spriteIndex={props.spriteIndex}
             type={"replace"} setBoard={setBoard}>{item.type}</Blockcopy>}
         </Reorder.Item>
       ))}

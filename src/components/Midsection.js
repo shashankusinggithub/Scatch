@@ -39,7 +39,7 @@ export const Midsection = (props) => {
                     props.flow.map((item, index)=>{
                         
                         return(
-                            <MidArea key={index} flow={props.flow} setFlow={props.setFlow}  activeSprite={activeSprite} name={item.name} index={index} url={item.url} />
+                            <MidArea key={index} flow={props.flow} setFlow={props.setFlow}  activeSprite={activeSprite} name={item.name} spriteIndex={index} url={item.url} />
                         )
                         
                     })

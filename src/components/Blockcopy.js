@@ -113,7 +113,7 @@ function Blockcopy(props) {
       //  onFocus={()=> console.log("captured", props.id)}
       className={`${props.class} h-11 items-center rounded-lg border-2`}
       onClick={(event) => {
-        setKeyVal(props.id)
+        setKeyVal({index: props.spriteIndex ,block:props.id})
         // console.log(keyVal)
         event.stopPropagation()
       }}

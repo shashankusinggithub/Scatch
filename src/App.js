@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "./components/Sidebar";
-import MidArea from "./components/MidArea";
 import PreviewArea from "./components/PreviewArea";
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { DndProvider } from "react-dnd"
@@ -13,7 +12,7 @@ import { Midsection } from "./components/Midsection";
 
 
 export default function App() {
-  const [keyVal, setKeyVal] = useState(-1)
+  const [keyVal, setKeyVal] = useState({index:-1, block:-1})
   const [flow, setFlow] = useState([])
   //store
 
