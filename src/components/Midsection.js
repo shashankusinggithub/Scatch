@@ -49,7 +49,7 @@ export const Midsection = (props) => {
                     Submit To Add
                 </button>
                 <h1 className='text-600 text-2xl font-bold '>SPRITES</h1>
-                <div className="grid grid-cols-2 justify-center md:grid-cols-1">
+                <div className="grid grid-cols-2 justify-center ms:grid-cols-1">
                     {
                         props.flow.map((item, index) => {
                             return (

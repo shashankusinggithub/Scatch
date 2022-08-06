@@ -192,7 +192,7 @@ const Sprite = forwardRef((props, ref) => {
       initial={{ x: 0, y: 0 }}
       ref={refnope}
       id={props.myname}
-      className={`w-20 m-14  absolute`}
+      className={` resize   w-20 m-14 absolute`}
       dragMomentum={false}
 
 

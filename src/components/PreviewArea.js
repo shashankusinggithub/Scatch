@@ -71,6 +71,7 @@ export default function PreviewArea(props) {
 
           return (
             <Sprite
+            className="hover:resize"
               key={index}
               ref={(element) => { refs.current[index] = element }}
               url={item.url}
