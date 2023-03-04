@@ -1,22 +1,25 @@
 import React from "react";
 import Sidebar from "./components/Sidebar";
 import PreviewArea from "./components/PreviewArea";
-import { HTML5Backend } from "react-dnd-html5-backend"
-import { DndProvider } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 import { useState, createContext } from "react";
-import  Context  from "./components/Context";
+import Context from "./components/Context";
 import { Midsection } from "./components/Midsection";
 
 export default function App() {
-  const sprite = {name: "cat", sequence:[],url: "https://www.seekpng.com/png/full/19-191322_scratch-cat-the-game-pose-as-you-know.png"}
-  const [keyVal, setKeyVal] = useState({index:-1, block:-1})
-  const [flow, setFlow] = useState([sprite])
-
+  const sprite = {
+    name: "cat",
+    sequence: [],
+    url: "https://www.seekpng.com/png/full/19-191322_scratch-cat-the-game-pose-as-you-know.png",
+  };
+  const [keyVal, setKeyVal] = useState({ index: -1, block: -1 });
+  const [flow, setFlow] = useState([sprite]);
 
   return (
     <DndProvider backend={HTML5Backend}>
       <Context.Provider value={[keyVal, setKeyVal]}>
-        <div className="bg-blue-100 pt-6 font-sans" >
+        <div className="bg-blue-100 pt-6 font-sans">
           <div className="h-screen overflow-hidden flex flex-row  antialiased ">
             <div className="flex h-screen w-3/5 overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
               <Sidebar />
